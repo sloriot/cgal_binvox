@@ -4,7 +4,7 @@
 cmake_minimum_required(VERSION 3.1...3.14)
 project( cgal_binvox.git )
 
-find_package(CGAL REQUIRED QUIET OPTIONAL_COMPONENTS Core )
+find_package(CGAL REQUIRED QUIET)
 
 create_single_source_cgal_program( "binvox.cpp" )
 
