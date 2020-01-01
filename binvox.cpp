@@ -121,6 +121,7 @@ int main(int argc, char** argv)
           byte value=prev;
           out << value << count;
           prev=inside;
+          count=1;
         }
       }
   byte value=prev;
