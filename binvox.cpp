@@ -48,19 +48,18 @@ int main(int argc, char** argv)
   double extend = bbox.xmax() - bbox.xmin();
   extend = (std::max)(extend, bbox.ymax() - bbox.ymin());
   extend = (std::max)(extend, bbox.zmax() - bbox.zmin());
-  extend/=grid_size;
   Point_3 origin(bbox.xmin(), bbox.ymin(), bbox.zmin());
 
   std::ofstream out("output.bin", std::ios_base::binary); // TODO: extract name from commandline
   out << "#binvox 1\n";
   out << "dim " << grid_size << " " << grid_size << " " << grid_size << "\n";
-  out << "translate " << -origin.x() << " " << -origin.y() << " " << -origin.z() << "\n";
-  out << "scale " << 1./extend << "\n";
+  out << "translate " << origin.x() << " " << origin.y() << " " << origin.z() << "\n";
+  out << "scale " << extend << "\n";
   out << "data\n";
 
   CGAL::Side_of_triangle_mesh<Mesh, K> side_of(mesh);
   
-
+  extend/=gs_d; // TODO rename
   typedef unsigned char byte;
   bool prev=false;
   byte count=0;
