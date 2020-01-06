@@ -115,7 +115,16 @@ int main(int argc, char** argv)
         if (xi==0 && yi==0 && zi==0)
           prev = inside;
         if (prev==inside)
+        {
           ++count;
+          if (count==0) // if too many indentical values, byte type might go around
+          {
+            --count;
+            byte value=prev;
+            out << value << count;
+            count=1;
+          }
+        }
         else
         {
           byte value=prev;
