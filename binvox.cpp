@@ -1,6 +1,6 @@
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Surface_mesh.h>
-#include <CGAL/IO/OBJ_reader.h>
+#include <CGAL/IO/polygon_soup_io.h>
 #include <CGAL/Polygon_mesh_processing/polygon_soup_to_polygon_mesh.h>
 #include <CGAL/Polygon_mesh_processing/triangulate_faces.h>
 #include <CGAL/Side_of_triangle_mesh.h>
@@ -64,15 +64,12 @@ int main(int argc, char** argv)
 
   std::vector<Point_3> points;
   std::vector<std::vector<std::size_t> > triangles;
-
-  std::ifstream in(fname);
-  if (!in)
+ 
+  if (! CGAL::IO::read_polygon_soup(fname, points, triangles))
   {
-    std::cerr << "ERROR: cannot open argv[1]\n";
-    return 1;
+     std::cerr << "ERROR: cannot read " << argv[1]  << std::endl;
+      return 1;
   }
-
-  CGAL::read_OBJ(in, points, triangles);
 
   if ( !PMP::is_polygon_soup_a_polygon_mesh(triangles) )
   {
